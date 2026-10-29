@@ -171,17 +171,23 @@ header {
 }
 section {
     padding: 100px 0;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 100px;
 }
 .hero {
-    padding-top: 150px;
-    padding-bottom: 90px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding-top: 130px;
+    padding-bottom: 70px;
+    position: relative;
 }
 .hero-grid {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     gap: 40px;
     align-items: center;
+    width: 100%;
 }
 .hero-badge {
     display: inline-flex;
@@ -235,6 +241,8 @@ section {
     backdrop-filter: blur(20px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
     margin-bottom: 30px;
+    scroll-margin-top: 130px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .hero-tracker-card h4 {
     font-size: 1rem;

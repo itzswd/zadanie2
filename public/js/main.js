@@ -293,6 +293,32 @@ if (btnQuickTrack) {
 }
 const btnHeroTrackSubmit = document.getElementById('btnHeroTrackSubmit');
 const heroTrackInput = document.getElementById('heroTrackInput');
+const trackLinks = document.querySelectorAll('a[href="#track"]');
+trackLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const heroSection = document.getElementById('hero');
+        const trackCard = document.getElementById('track');
+        const heroInput = document.getElementById('heroTrackInput');
+        if (window.scrollY > 80 && heroSection) {
+            heroSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        if (heroInput) {
+            setTimeout(() => {
+                heroInput.focus();
+                if (trackCard) {
+                    trackCard.style.borderColor = 'var(--accent-color)';
+                    trackCard.style.boxShadow = '0 0 35px rgba(56, 189, 248, 0.4)';
+                    setTimeout(() => {
+                        trackCard.style.borderColor = '';
+                        trackCard.style.boxShadow = '';
+                    }, 1400);
+                }
+            }, 300);
+        }
+    });
+});
+
 if (btnHeroTrackSubmit && heroTrackInput) {
     btnHeroTrackSubmit.addEventListener('click', () => {
         if (heroTrackInput.value.trim()) {
