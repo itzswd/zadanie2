@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет клиента • FIXTECH</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/print.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-nav">
+            <div class="admin-brand">
+                <a href="index.html">
+                    <img src="./images/logo.svg" alt="FIXTECH" class="admin-logo">
+                </a>
+                <span class="admin-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border-color: rgba(16, 185, 129, 0.3);">Личный кабинет</span>
+            </div>
+            <div class="admin-actions">
+                <a href="index.html#request" class="btn-pill btn-primary" style="font-size: 0.8rem;">
+                    + Новая заявка на ремонт
+                </a>
+                <div class="user-profile-badge">
+                    <div class="user-avatar" id="userAvatar">К</div>
+                    <span id="userNameDisplay">Клиент</span>
+                </div>
+                <a href="index.html" class="btn-pill" id="btnCabinetLogout">Выйти</a>
+            </div>
+        </div>
+    </header>
+    <div class="admin-container">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Активные заявки</div>
+                <div class="kpi-value" id="kpiActiveCount">0</div>
+                <div class="kpi-sub">В диагностике или ремонте</div>
+            </div>
+            <div class="kpi-card success">
+                <div class="kpi-title">Готовы к выдаче</div>
+                <div class="kpi-value" id="kpiReadyCount" style="color: var(--accent-green);">0</div>
+                <div class="kpi-sub">Можно забирать из сервиса</div>
+            </div>
+            <div class="kpi-card purple">
+                <div class="kpi-title">Завершённые ремонты</div>
+                <div class="kpi-value" id="kpiCompletedCount">0</div>
+                <div class="kpi-sub">Успешно выдано с гарантией</div>
+            </div>
+            <div class="kpi-card warning">
+                <div class="kpi-title">Общая сумма ремонтов</div>
+                <div class="kpi-value" id="kpiTotalSpent" style="color: var(--accent-amber);">0 ₽</div>
+                <div class="kpi-sub">С учётом установленных запчастей</div>
+            </div>
+        </div>
+        <div class="table-toolbar">
+            <h3 class="font-heading" style="font-size: 1.2rem;">История моих обращений</h3>
+            <div class="toolbar-filter">
+                <select id="cabinetStatusFilter" style="border-radius: 999px;">
+                    <option value="all">Все статусы</option>
+                    <option value="received">Принятые</option>
+                    <option value="in_progress">В ремонте</option>
+                    <option value="ready">Готовые к выдаче</option>
+                    <option value="completed">Выданные</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Номер заявки</th>
+                        <th>Устройство</th>
+                        <th>Неисправность</th>
+                        <th>Дата приёма</th>
+                        <th>Инженер</th>
+                        <th>Статус ремонта</th>
+                        <th>Сумма</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody id="cabinetOrdersTableBody">
+                    <tr>
+                        <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 40px;">Загрузка списка заявок...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 40px;">
+            <h3 class="font-heading" style="font-size: 1.1rem; margin-bottom: 16px;">Журнал уведомлений по моим ремонтам</h3>
+            <div id="cabinetNotificationsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="cabinetDetailModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeCabinetModal">&times;</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 id="cadId" class="font-heading" style="color: var(--accent-color);">REP-1042</h3>
+                <span id="cadStatusBadge" class="status-badge received">Принята</span>
+            </div>
+            <h4 id="cadDevice" style="margin-bottom: 20px;">Apple iPhone 13</h4>
+            <div class="timeline">
+                <div class="timeline-steps">
+                    <div class="timeline-step" id="cstep-received">
+                        <div class="timeline-circle">1</div>
+                        <div class="timeline-label">Принята</div>
+                    </div>
+                    <div class="timeline-step" id="cstep-diagnostics">
+                        <div class="timeline-circle">2</div>
+                        <div class="timeline-label">Диагностика</div>
+                    </div>
+                    <div class="timeline-step" id="cstep-in_progress">
+                        <div class="timeline-circle">3</div>
+                        <div class="timeline-label">В ремонте</div>
+                    </div>
+                    <div class="timeline-step" id="cstep-ready">
+                        <div class="timeline-circle">4</div>
+                        <div class="timeline-label">Готова</div>
+                    </div>
+                    <div class="timeline-step" id="cstep-completed">
+                        <div class="timeline-circle">5</div>
+                        <div class="timeline-label">Выдана</div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-details-box">
+                <div class="order-details-row">
+                    <span class="order-details-label">Неисправность:</span>
+                    <span class="order-details-val" id="cadProblem">-</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Мастер:</span>
+                    <span class="order-details-val" id="cadMaster">Ожидает назначения</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Заключение инженера:</span>
+                    <span class="order-details-val" id="cadDiagnosis">-</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Комментарий мастера:</span>
+                    <span class="order-details-val" id="cadComment">-</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Стоимость работ:</span>
+                    <span class="order-details-val" id="cadLabor">0 ₽</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Установленные запчасти:</span>
+                    <span class="order-details-val" id="cadPartsList">Нет</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Итого к оплате:</span>
+                    <span class="order-details-val" style="color: var(--accent-color); font-size: 1.15rem;" id="cadTotal">0 ₽</span>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding: 14px; background: rgba(255,255,255,0.03); border-radius: 10px; border: var(--border-glass);">
+                <div>
+                    <div style="font-weight: 600; font-size: 0.9rem;">QR-код заказ-наряда</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Для быстрой проверки статуса со смартфона</div>
+                </div>
+                <div id="cadQR"></div>
+            </div>
+            <div style="margin-top: 24px; text-align: center;">
+                <button class="btn-pill btn-primary" id="btnCabinetPrintDoc">
+                    Распечатать квитанцию / акт
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="printableReceiptModal">
+        <div class="modal-content print-document" style="max-width: 720px; background: #ffffff; color: #111827;">
+            <button class="modal-close no-print" id="closePrintModal" style="color: #000;">&times;</button>
+            <div class="print-header">
+                <div>
+                    <div class="print-title">Сервисный центр «FIXTECH»</div>
+                    <div style="font-size: 9pt; color: #4b5563;">г. Москва, ул. Техническая, д. 42 • Тел: +7 (495) 777-22-11</div>
+                </div>
+                <div id="printDocQR" style="text-align: right;"></div>
+            </div>
+            <h3 style="text-align: center; margin: 16px 0 8px; font-size: 13pt; text-transform: uppercase;">
+                Заказ-наряд и Акт приёма-передачи № <span id="printDocId">REP-1042</span>
+            </h3>
+            <table class="print-table">
+                <tr>
+                    <td style="width: 30%; font-weight: bold;">Заказчик:</td>
+                    <td id="printDocClient">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Устройство:</td>
+                    <td id="printDocDevice">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Заявленный дефект:</td>
+                    <td id="printDocProblem">-</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Инженер:</td>
+                    <td id="printDocMaster">-</td>
+                </tr>
+            </table>
+            <h4 style="margin: 14px 0 6px; font-size: 10pt; text-transform: uppercase;">Детализация работ и запчастей</h4>
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody id="printDocItemsList"></tbody>
+            </table>
+            <div style="text-align: right; font-size: 12pt; font-weight: bold; margin: 16px 0;">
+                Итого к оплате: <span id="printDocTotal">0</span> руб.
+            </div>
+            <div class="no-print" style="margin-top: 24px; text-align: center;">
+                <button class="btn-pill btn-primary" onclick="window.print();">Печать документа</button>
+            </div>
+        </div>
+    </div>
+    <div id="toastContainer"></div>
+    <script src="./js/qrcode-util.js">
+</script>
+    <script src="./js/cabinet.js">
+</script>
+</body>
+</html>

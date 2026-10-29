@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 450" fill="none">
+    <defs>
+        <linearGradient id="cyberBg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9" />
+        </linearGradient>
+        <linearGradient id="neonGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38bdf8" />
+            <stop offset="50%" stop-color="#3b82f6" />
+            <stop offset="100%" stop-color="#8b5cf6" />
+        </linearGradient>
+        <radialGradient id="meshCenter" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25" />
+            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+        </radialGradient>
+    </defs>
+
+    <!-- Фоновое свечение -->
+    <circle cx="250" cy="225" r="200" fill="url(#meshCenter)" />
+
+    <!-- Плата / Диагностическая рабочая станция -->
+    <rect x="80" y="80" width="340" height="290" rx="24" fill="url(#cyberBg)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="2" />
+    
+    <!-- Дорожки платы -->
+    <path d="M120 120H200V170H250 M120 200H180V250H230 M380 120H320V190H280" stroke="rgba(56, 189, 248, 0.4)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 4" />
+    
+    <!-- Главный процессор / Диагностируемый чип -->
+    <rect x="200" y="150" width="100" height="100" rx="14" fill="#090d16" stroke="url(#neonGlow)" stroke-width="3" />
+    <circle cx="250" cy="200" r="24" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="250" y="205" font-family="'Unbounded', sans-serif" font-size="12" font-weight="700" fill="#38bdf8" text-anchor="middle">CPU</text>
+
+    <!-- Выводы процессора -->
+    <line x1="200" y1="170" x2="185" y2="170" stroke="#38bdf8" stroke-width="2" />
+    <line x1="200" y1="190" x2="185" y2="190" stroke="#38bdf8" stroke-width="2" />
+    <line x1="200" y1="210" x2="185" y2="210" stroke="#38bdf8" stroke-width="2" />
+    <line x1="200" y1="230" x2="185" y2="230" stroke="#38bdf8" stroke-width="2" />
+
+    <line x1="300" y1="170" x2="315" y2="170" stroke="#38bdf8" stroke-width="2" />
+    <line x1="300" y1="190" x2="315" y2="190" stroke="#38bdf8" stroke-width="2" />
+    <line x1="300" y1="210" x2="315" y2="210" stroke="#38bdf8" stroke-width="2" />
+    <line x1="300" y1="230" x2="315" y2="230" stroke="#38bdf8" stroke-width="2" />
+
+    <!-- Плавающий смартфон слева -->
+    <g transform="translate(60, 160) rotate(-10)">
+        <rect x="0" y="0" width="100" height="170" rx="16" fill="#0b1120" stroke="#38bdf8" stroke-width="2.5" />
+        <rect x="10" y="15" width="80" height="140" rx="10" fill="rgba(56, 189, 248, 0.1)" />
+        <line x1="25" y1="50" x2="75" y2="90" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" />
+        <line x1="75" y1="90" x2="40" y2="130" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" />
+        <circle cx="50" cy="160" r="3" fill="#ffffff" />
+    </g>
+
+    <!-- Плавающий значок статуса "OK / Ready" справа -->
+    <g transform="translate(340, 240)">
+        <rect x="0" y="0" width="130" height="60" rx="14" fill="#0f172a" stroke="#10b981" stroke-width="2" />
+        <circle cx="25" cy="30" r="12" fill="rgba(16, 185, 129, 0.2)" />
+        <path d="M20 30L24 34L31 26" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <text x="45" y="27" font-family="'Inter', sans-serif" font-size="10" font-weight="700" fill="#10b981">СТАТУС</text>
+        <text x="45" y="42" font-family="'Inter', sans-serif" font-size="12" font-weight="800" fill="#ffffff">ГОТОВО</text>
+    </g>
+
+    <!-- Инструмент (паяльник / щуп мультиметра) -->
+    <g transform="translate(300, 60) rotate(35)">
+        <rect x="0" y="0" width="16" height="120" rx="8" fill="#334155" stroke="#64748b" stroke-width="2" />
+        <rect x="3" y="10" width="10" height="40" rx="4" fill="#f59e0b" />
+        <path d="M6 120L8 150L10 120Z" fill="#94a3b8" />
+        <circle cx="8" cy="150" r="6" fill="#38bdf8" opacity="0.8" />
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+{
+  "name": "repair-workshop",
+  "version": "1.0.0",
+  "description": "Веб-приложение «Ремонтная мастерская» (приём заявок, отслеживание статуса, учёт запчастей)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "repair",
+    "workshop",
+    "express",
+    "sqlite",
+    "service-center"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

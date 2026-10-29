@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рабочее место мастера • FIXTECH</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/print.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="admin-nav">
+            <div class="admin-brand">
+                <a href="index.html">
+                    <img src="./images/logo.svg" alt="FIXTECH" class="admin-logo">
+                </a>
+                <span class="admin-badge master-badge">Рабочее место мастера</span>
+            </div>
+            <div class="admin-actions">
+                <div class="user-profile-badge">
+                    <div class="user-avatar" id="masterAvatar">М</div>
+                    <span id="masterNameDisplay">Мастер</span>
+                </div>
+                <a href="index.html" class="btn-pill" id="btnMasterLogout">Выйти</a>
+            </div>
+        </div>
+    </header>
+    <div class="admin-container">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">Назначено мне</div>
+                <div class="kpi-value" id="kpiMasterAssigned">0</div>
+                <div class="kpi-sub">Все активные задачи</div>
+            </div>
+            <div class="kpi-card warning">
+                <div class="kpi-title">В ремонте / диагностике</div>
+                <div class="kpi-value" id="kpiMasterInWork" style="color: var(--accent-amber);">0</div>
+                <div class="kpi-sub">Требуют внимания прямо сейчас</div>
+            </div>
+            <div class="kpi-card success">
+                <div class="kpi-title">Готовы к выдаче</div>
+                <div class="kpi-value" id="kpiMasterReady" style="color: var(--accent-green);">0</div>
+                <div class="kpi-sub">Ремонт успешно завершён</div>
+            </div>
+            <div class="kpi-card purple">
+                <div class="kpi-title">Стоимость выполненных работ</div>
+                <div class="kpi-value" id="kpiMasterEarned" style="color: var(--accent-purple);">0 ₽</div>
+                <div class="kpi-sub">Трудозатраты инженера</div>
+            </div>
+        </div>
+        <div class="table-toolbar">
+            <div class="toolbar-search">
+                <input type="text" id="masterSearchInput" placeholder="Поиск по номеру, модели, клиенту...">
+            </div>
+            <div class="toolbar-filter">
+                <select id="masterStatusFilter" style="border-radius: 999px;">
+                    <option value="all">Все статусы</option>
+                    <option value="received">Принятые</option>
+                    <option value="diagnostics">В диагностике</option>
+                    <option value="in_progress">В ремонте</option>
+                    <option value="ready">Готовые к выдаче</option>
+                    <option value="completed">Выданные</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Заявка</th>
+                        <th>Устройство</th>
+                        <th>Заказчик</th>
+                        <th>Заявленный дефект</th>
+                        <th>Статус</th>
+                        <th>Детали и работы</th>
+                        <th>Итого</th>
+                        <th>Управление</th>
+                    </tr>
+                </thead>
+                <tbody id="masterOrdersTableBody">
+                    <tr>
+                        <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 40px;">Загрузка назначенных заявок...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-overlay" id="masterReportModal">
+        <div class="modal-content" style="max-width: 780px;">
+            <button class="modal-close" id="closeMasterReportModal">&times;</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <h3 class="font-heading" style="color: var(--accent-color);" id="mrepId">REP-1042</h3>
+                    <div id="mrepDevice" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 2px;">Apple iPhone 13</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <label style="font-size: 0.8rem; color: var(--text-muted);">Статус:</label>
+                    <select id="mrepStatusSelect" class="btn-pill" style="padding: 6px 14px; background: #0f1422; color: #fff;">
+                        <option value="received">Принята</option>
+                        <option value="diagnostics">В диагностике</option>
+                        <option value="in_progress">В ремонте</option>
+                        <option value="ready">Готова к выдаче</option>
+                        <option value="completed">Выдана</option>
+                        <option value="cancelled">Отменена</option>
+                    </select>
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: var(--border-glass); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px;">
+                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Заявленный дефект клиента:</span>
+                <p id="mrepClientProblem" style="font-size: 0.9rem; color: #ffffff; margin-top: 4px;"></p>
+            </div>
+            <div class="form-grid" style="margin-bottom: 20px;">
+                <div class="form-group form-group-full">
+                    <label for="mrepDiagnosticNotes">Результаты диагностики и причина неисправности</label>
+                    <textarea id="mrepDiagnosticNotes" rows="2" placeholder="Например: Обрыв шлейфа дисплея, выгорел ключ питания Q3204"></textarea>
+                </div>
+                <div class="form-group form-group-full">
+                    <label for="mrepMasterComment">Комментарий для клиента / рекомендации</label>
+                    <textarea id="mrepMasterComment" rows="2" placeholder="Например: Установлен оригинальный дисплей, выполнена влагозащита корпуса"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mrepLaborCost">Стоимость работ инженера (₽)</label>
+                    <input type="number" id="mrepLaborCost" min="0" step="50" placeholder="1500">
+                </div>
+                <div class="form-group">
+                    <label>Итоговая стоимость заказа</label>
+                    <div id="mrepTotalDisplay" style="font-family: 'Unbounded', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent-color); padding-top: 8px;">
+                        0 ₽
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: var(--border-glass); padding-top: 20px; margin-bottom: 20px;">
+                <h4 style="font-size: 0.95rem; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <span>Использованные запчасти со склада</span>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">(списываются из остатков автоматически)</span>
+                </h4>
+                <div style="display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;">
+                    <select id="mrepPartSelect" style="flex: 2; min-width: 280px; background: rgba(0,0,0,0.4); border: var(--border-glass); border-radius: 8px; padding: 10px; color: #fff;">
+                        <option value="">-- Выберите деталь со склада --</option>
+                    </select>
+                    <input type="number" id="mrepPartQty" value="1" min="1" max="10" style="width: 70px; background: rgba(0,0,0,0.4); border: var(--border-glass); border-radius: 8px; padding: 10px; color: #fff; text-align: center;">
+                    <button type="button" class="btn-pill btn-primary" id="btnMrepAddPart">
+                        + Списать и прикрепить
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Деталь</th>
+                                <th>Кол-во</th>
+                                <th>Цена за ед.</th>
+                                <th>Сумма</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mrepPartsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 12px; border-top: var(--border-glass); padding-top: 20px;">
+                <button type="button" class="btn-pill" id="btnMasterCloseModal">Отмена</button>
+                <button type="button" class="btn-pill btn-primary" id="btnMasterSaveReport">
+                    Сохранить отчёт и статус
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="toastContainer"></div>
+    <script src="./js/master.js">
+</script>
+</body>
+</html>

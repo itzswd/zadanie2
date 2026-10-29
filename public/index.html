@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIXTECH • Сервисный центр и ремонт техники</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/print.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Unbounded:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-bar">
+            <a href="#" class="logo-link">
+                <img src="./images/logo.svg" alt="FIXTECH Сервисный центр">
+            </a>
+            <nav class="nav-links">
+                <a href="#services" class="nav-link">услуги</a>
+                <a href="#track" class="nav-link">статус</a>
+                <a href="#request" class="nav-link">заявка</a>
+                <a href="#workflow" class="nav-link">этапы</a>
+                <a href="#contacts" class="nav-link">контакты</a>
+            </nav>
+            <div class="nav-actions">
+                <div id="authNavContainer">
+                    <button class="btn-pill btn-primary" id="btnLoginOpen">Войти</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="hero" id="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Профессиональный <span>ремонт техники</span> любого уровня
+                    </h1>
+                    <p class="hero-subtitle">
+                        Смартфоны, ноутбуки, планшеты и бытовая электроника. Бесплатная аппаратная диагностика, собственный склад оригинальных запчастей и прозрачное отслеживание каждого шага онлайн.
+                    </p>
+                    <div class="hero-tracker-card" id="track">
+                        <h4>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            Узнать статус ремонта по номеру заявки
+                        </h4>
+                        <div class="tracker-input-group">
+                            <input type="text" id="heroTrackInput" placeholder="Например: REP-1042" autocomplete="off">
+                            <button class="btn-pill btn-primary" id="btnHeroTrackSubmit">Проверить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="./images/hero.svg" alt="Лаборатория ремонта FIXTECH">
+                </div>
+            </div>
+        </section>
+        <section id="services">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Прейскурант</span>
+                    <h2 class="section-title">Каталог услуг и ориентировочные цены</h2>
+                    <p class="section-desc">Точная стоимость определяется после бесплатной диагностики с фиксацией в заказ-наряде.</p>
+                </div>
+                <div class="catalog-controls">
+                    <div class="category-pills" id="categoryPills">
+                        <button class="category-pill active" data-category="Все">Все категории</button>
+                        <button class="category-pill" data-category="Смартфоны">Смартфоны</button>
+                        <button class="category-pill" data-category="Ноутбуки">Ноутбуки</button>
+                        <button class="category-pill" data-category="Планшеты">Планшеты</button>
+                        <button class="category-pill" data-category="Компьютеры">Компьютеры</button>
+                        <button class="category-pill" data-category="Бытовая техника">Бытовая техника</button>
+                    </div>
+                    <div class="catalog-search">
+                        <input type="text" id="servicesSearchInput" placeholder="Поиск услуги по названию...">
+                    </div>
+                </div>
+                <div class="services-grid" id="servicesContainer">
+                </div>
+            </div>
+        </section>
+        <section id="request" class="request-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Онлайн-запись</span>
+                    <h2 class="section-title">Оформить заявку на ремонт</h2>
+                    <p class="section-desc">Заполните данные о неисправности. Мы зарезервируем мастера и подготовим необходимые детали к вашему визиту.</p>
+                </div>
+                <div class="request-card">
+                    <form id="orderForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="clientName">Ваше имя *</label>
+                                <input type="text" id="clientName" placeholder="Иван Петров" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="clientPhone">Номер телефона *</label>
+                                <input type="tel" id="clientPhone" placeholder="+7 (999) 000-00-00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="clientEmail">Электронная почта (для уведомлений о статусе)</label>
+                                <input type="email" id="clientEmail" placeholder="client@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="deviceType">Тип устройства *</label>
+                                <select id="deviceType" required>
+                                    <option value="" disabled selected>Выберите тип</option>
+                                    <option value="Смартфон">Смартфон</option>
+                                    <option value="Ноутбук">Ноутбук</option>
+                                    <option value="Планшет">Планшет</option>
+                                    <option value="Компьютер">Компьютер / Моноблок</option>
+                                    <option value="Аудио/Видео">Аудио / Наушники</option>
+                                    <option value="Бытовая техника">Бытовая техника / ТВ</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="brandModel">Бренд и точная модель *</label>
+                                <input type="text" id="brandModel" placeholder="Например: Apple iPhone 14 Pro, Asus ZenBook" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="serialNumber">Серийный номер / IMEI (при наличии)</label>
+                                <input type="text" id="serialNumber" placeholder="C02WV4DTHV29 или IMEI">
+                            </div>
+                            <div class="form-group-full form-group">
+                                <label for="problemDescription">Подробное описание неисправности *</label>
+                                <textarea id="problemDescription" rows="3" placeholder="Что произошло? После чего устройство перестало работать? Какие видимые дефекты?" required></textarea>
+                            </div>
+                            <div class="form-group-full form-group">
+                                <label>Прикрепить фото повреждения (по желанию)</label>
+                                <div class="photo-upload-area" id="photoDropArea">
+                                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2" style="margin-bottom: 8px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                    <p style="font-size: 0.9rem; color: #ffffff;">Нажмите или перетащите фото сюда</p>
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">PNG, JPG до 5 МБ</p>
+                                    <img id="photoPreview" class="photo-upload-preview" alt="Превью фото">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button type="submit" class="btn-pill btn-primary" style="padding: 14px 40px; font-size: 1rem;">
+                                Отправить заявку и получить трек-номер
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section id="workflow">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Прозрачный процесс</span>
+                    <h2 class="section-title">4 шага до полной исправности</h2>
+                    <p class="section-desc">Вы всегда контролируете каждый этап ремонта и знаете точные сроки и стоимость.</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h4 class="step-title">Приёмка и осмотр</h4>
+                        <p class="step-desc">Оформляем квитанцию с QR-кодом, фиксируем визуальные дефекты и выдаём трек-номер.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h4 class="step-title">Диагностика</h4>
+                        <p class="step-desc">Инженер выявляет причину поломки, тестирует цепи питания и согласовывает стоимость.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h4 class="step-title">Ремонт на складе</h4>
+                        <p class="step-desc">Устанавливаем оригинальные детали со склада, проводим пайку и финишное тестирование.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h4 class="step-title">Выдача с гарантией</h4>
+                        <p class="step-desc">Вам приходит SMS/email уведомление. Вы проверяете устройство и получаете гарантийный талон.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="contacts">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Мы рядом</span>
+                    <h2 class="section-title">Контакты мастерской</h2>
+                    <p class="section-desc">Работаем ежедневно без выходных. Принимаем курьерскую доставку.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                    <div class="service-card">
+                        <h4 style="margin-bottom: 8px;">Адрес центра</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">г. Москва, ул. Техническая, д. 42 (м. Электрозаводская, 3 мин пешком)</p>
+                        <p style="color: var(--accent-color); margin-top: 10px; font-weight: 600;">Бесплатная парковка для клиентов</p>
+                    </div>
+                    <div class="service-card">
+                        <h4 style="margin-bottom: 8px;">Режим работы</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Пн – Пт: 09:00 — 21:00</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Сб – Вс: 10:00 — 20:00</p>
+                        <p style="color: var(--accent-green); margin-top: 10px; font-weight: 600;">Приём срочных заявок онлайн 24/7</p>
+                    </div>
+                    <div class="service-card">
+                        <h4 style="margin-bottom: 8px;">Связь с инженерами</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Телефон: +7 (495) 777-22-11</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">E-mail: support@fixtech-repair.ru</p>
+                        <p style="color: var(--accent-amber); margin-top: 10px; font-weight: 600;">Telegram: @fixtech_support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <img src="./images/logo.svg" alt="FIXTECH" style="height: 32px;">
+                </div>
+                <div class="footer-col">
+                    <h5>Навигация</h5>
+                    <ul>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#track">Статус</a></li>
+                        <li><a href="#request">Заявка</a></li>
+                        <li><a href="#workflow">Этапы</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Порталы</h5>
+                    <ul>
+                        <li><a href="cabinet.html">Личный кабинет клиента</a></li>
+                        <li><a href="master.html">Рабочее место мастера</a></li>
+                        <li><a href="admin.html">Панель администратора</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Тестовые доступы</h5>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;">
+                        Админ: <code>admin@remont.ru</code> (admin123)<br>
+                        Мастер: <code>master@remont.ru</code> (master123)<br>
+                        Клиент: <code>client@mail.ru</code> (client123)
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 FIXTECH • Разработка веб-приложения «Ремонтная мастерская». Все права защищены.
+            </div>
+        </div>
+    </footer>
+    <div class="modal-overlay" id="orderTrackModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeTrackModal">&times;</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 id="trackModalOrderId" class="font-heading" style="color: var(--accent-color);">REP-1042</h3>
+                <span id="trackModalStatusBadge" class="status-badge received">Принята</span>
+            </div>
+            <h4 id="trackModalDevice" style="margin-bottom: 20px;">Apple iPhone 13</h4>
+            <div class="timeline">
+                <div class="timeline-steps">
+                    <div class="timeline-step" id="step-received">
+                        <div class="timeline-circle">1</div>
+                        <div class="timeline-label">Принята</div>
+                    </div>
+                    <div class="timeline-step" id="step-diagnostics">
+                        <div class="timeline-circle">2</div>
+                        <div class="timeline-label">Диагностика</div>
+                    </div>
+                    <div class="timeline-step" id="step-in_progress">
+                        <div class="timeline-circle">3</div>
+                        <div class="timeline-label">В ремонте</div>
+                    </div>
+                    <div class="timeline-step" id="step-ready">
+                        <div class="timeline-circle">4</div>
+                        <div class="timeline-label">Готова</div>
+                    </div>
+                    <div class="timeline-step" id="step-completed">
+                        <div class="timeline-circle">5</div>
+                        <div class="timeline-label">Выдана</div>
+                    </div>
+                </div>
+            </div>
+            <div class="order-details-box">
+                <div class="order-details-row">
+                    <span class="order-details-label">Клиент:</span>
+                    <span class="order-details-val" id="trackModalClient">Екатерина</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Неисправность:</span>
+                    <span class="order-details-val" id="trackModalProblem">-</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Назначенный инженер:</span>
+                    <span class="order-details-val" id="trackModalMaster">Ожидает назначения</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Заключение диагностики:</span>
+                    <span class="order-details-val" id="trackModalDiagnosis">В процессе</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Использованные детали:</span>
+                    <span class="order-details-val" id="trackModalParts">Нет</span>
+                </div>
+                <div class="order-details-row">
+                    <span class="order-details-label">Итоговая стоимость:</span>
+                    <span class="order-details-val" style="color: var(--accent-color); font-size: 1.1rem;" id="trackModalCost">0 ₽</span>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 24px; padding: 14px; background: rgba(255,255,255,0.03); border-radius: 10px; border: var(--border-glass);">
+                <div>
+                    <div style="font-weight: 600; font-size: 0.9rem;">QR-код для быстрой проверки</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Отсканируйте камерой смартфона</div>
+                </div>
+                <div id="trackModalQRCode"></div>
+            </div>
+            <div style="margin-top: 24px; text-align: center;">
+                <button class="btn-pill btn-primary" id="btnPrintReceiptBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    Распечатать квитанцию / акт
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content" style="max-width: 440px;">
+            <button class="modal-close" id="closeAuthModal">&times;</button>
+            <div style="display: flex; gap: 10px; margin-bottom: 24px; border-bottom: var(--border-glass); padding-bottom: 12px;">
+                <button id="authTabLogin" class="btn-pill btn-primary" style="flex: 1; justify-content: center;">Вход</button>
+                <button id="authTabRegister" class="btn-pill" style="flex: 1; justify-content: center;">Регистрация</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="admin@remont.ru" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-pill btn-primary" style="width: 100%; justify-content: center; padding: 12px;">Войти</button>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 16px; text-align: center;">
+                    Тест: <code>admin@remont.ru</code> (admin123) или <code>master@remont.ru</code>
+                </p>
+            </form>
+            <form id="registerForm" style="display: none;">
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label for="regName">Имя и Фамилия</label>
+                    <input type="text" id="regName" placeholder="Алексей Смирнов" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" placeholder="alex@gmail.com" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label for="regPhone">Телефон</label>
+                    <input type="tel" id="regPhone" placeholder="+7 (999) 111-22-33">
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="regPassword">Пароль</label>
+                    <input type="password" id="regPassword" placeholder="Минимум 6 символов" required>
+                </div>
+                <button type="submit" class="btn-pill btn-primary" style="width: 100%; justify-content: center; padding: 12px;">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-overlay" id="printableReceiptModal">
+        <div class="modal-content print-document" style="max-width: 720px; background: #ffffff; color: #111827;">
+            <button class="modal-close no-print" id="closePrintModal" style="color: #000;">&times;</button>
+            <div class="print-header">
+                <div>
+                    <div class="print-title">Сервисный центр «FIXTECH»</div>
+                    <div style="font-size: 9pt; color: #4b5563;">г. Москва, ул. Техническая, д. 42 • Тел: +7 (495) 777-22-11</div>
+                    <div style="font-size: 9pt; color: #4b5563;">ИНН 7701234567 / ОГРН 1197746000000</div>
+                </div>
+                <div id="printDocQR" style="text-align: right;"></div>
+            </div>
+            <h3 style="text-align: center; margin: 16px 0 8px; font-size: 13pt; text-transform: uppercase;">
+                Заказ-наряд и Акт приёма-передачи № <span id="printDocId">REP-1042</span>
+            </h3>
+            <div style="text-align: center; font-size: 9pt; color: #6b7280; margin-bottom: 16px;">
+                Дата оформления: <span id="printDocDate">28.10.2026</span>
+            </div>
+            <table class="print-table">
+                <tr>
+                    <td style="width: 30%; font-weight: bold;">Заказчик:</td>
+                    <td id="printDocClient">Екатерина Клиентова (+7 999 111-22-33)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Устройство:</td>
+                    <td id="printDocDevice">Apple iPhone 13 (SN: DN6F9817Q6L8)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Заявленный дефект:</td>
+                    <td id="printDocProblem">Разбит экран, полосы на матрице</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Инженер:</td>
+                    <td id="printDocMaster">Михаил Инженеров</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Результат диагностики:</td>
+                    <td id="printDocDiagnosis">Замена дисплейного модуля в сборе</td>
+                </tr>
+            </table>
+            <h4 style="margin: 14px 0 6px; font-size: 10pt; text-transform: uppercase;">Детализация работ и запчастей</h4>
+            <table class="print-table" id="printDocItemsTable">
+                <thead>
+                    <tr>
+                        <th>Наименование</th>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody id="printDocItemsList">
+                </tbody>
+            </table>
+            <div style="text-align: right; font-size: 12pt; font-weight: bold; margin: 16px 0;">
+                Итого к оплате: <span id="printDocTotal">11 300</span> руб.
+            </div>
+            <div style="font-size: 8pt; color: #4b5563; border-top: 1px solid #d1d5db; padding-top: 8px;">
+                Гарантийные обязательства: Гарантия на выполненные работы и установленные компоненты составляет от 30 до 180 дней. Гарантия аннулируется при наличии следов механических повреждений или попадания влаги после выдачи.
+            </div>
+            <div class="print-signatures">
+                <div>
+                    <div class="signature-line">Подпись заказчика / Расшифровка</div>
+                </div>
+                <div>
+                    <div class="signature-line">Подпись мастера / М.П.</div>
+                </div>
+            </div>
+            <div class="no-print" style="margin-top: 24px; text-align: center;">
+                <button class="btn-pill btn-primary" onclick="window.print();">Печать документа</button>
+            </div>
+        </div>
+    </div>
+    <div id="toastContainer"></div>
+    <script src="./js/qrcode-util.js">
+</script>
+    <script src="./js/main.js">
+</script>
+</body>
+</html>

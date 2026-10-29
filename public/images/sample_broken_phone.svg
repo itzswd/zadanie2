@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+    <rect width="200" height="200" rx="20" fill="#0f172a" stroke="#334155" stroke-width="2" />
+    <!-- Телефон с трещиной -->
+    <rect x="55" y="30" width="90" height="140" rx="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2" />
+    <rect x="63" y="42" width="74" height="116" rx="8" fill="#090d16" />
+    <!-- Трещины на экране -->
+    <path d="M70 60L95 85L85 105L120 120" stroke="#f43f5e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M95 85L125 70" stroke="#f43f5e" stroke-width="1.5" stroke-linecap="round" />
+    <path d="M85 105L75 140" stroke="#f43f5e" stroke-width="1.5" stroke-linecap="round" />
+    <!-- Текст -->
+    <text x="100" y="185" font-family="'Inter', sans-serif" font-size="10" font-weight="600" fill="#94a3b8" text-anchor="middle">Фото дефекта: разбит экран</text>
+</svg>
